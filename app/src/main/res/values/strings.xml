@@ -2,5 +2,5 @@
     <string name="app_name">OpenPeriod</string>
     <string name="start_period">Period started</string>
     <string name="home_fragment_label">Home</string>
-    <string name="days_until_next_period_label">days until next period</string>
+    <string name="days_until_next_period_label">est. days until period starts</string>
 </resources>
