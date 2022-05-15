@@ -3,4 +3,5 @@
     <string name="start_period">Period started</string>
     <string name="home_fragment_label">Home</string>
     <string name="days_until_next_period_label">est. days until period starts</string>
+    <string name="days_remaining_in_period_label">est. days remaining in period</string>
 </resources>

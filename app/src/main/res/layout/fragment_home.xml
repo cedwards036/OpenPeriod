@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -18,6 +18,7 @@
             android:id="@+id/start_period_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> homeViewModel.handlePeriodStartedClick()}"
             android:text="@string/start_period"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +29,7 @@
             android:id="@+id/days_until_next_period"
             android:layout_width="76dp"
             android:layout_height="67dp"
+            android:text="@{homeViewModel.daysUntilNextPeriodString}"
             android:textAlignment="center"
             android:textSize="@dimen/remaining_days_font_size"
             app:layout_constraintBottom_toTopOf="@+id/start_period_btn"
@@ -35,17 +37,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.8"
-            android:text="@{homeViewModel.daysUntilNextPeriodString}"
             tools:text="11" />
 
         <TextView
-            android:id="@+id/days_until_next_period_label"
+            android:id="@+id/day_count_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/days_until_next_period_label"
+            android:text="@{homeViewModel.dayCountLabel}"
+            android:textSize="@dimen/homescreen_base_font_size"
             app:layout_constraintBottom_toTopOf="@+id/start_period_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/days_until_next_period" />
+            app:layout_constraintTop_toBottomOf="@+id/days_until_next_period"
+            tools:text="@string/days_until_next_period_label" />
+
+        <TextView
+            android:id="@+id/current_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{homeViewModel.currentDateString}"
+            android:textSize="@dimen/homescreen_base_font_size"
+            app:layout_constraintBottom_toTopOf="@+id/days_until_next_period"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            tools:text="2022-05-12" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

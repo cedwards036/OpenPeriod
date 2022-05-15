@@ -1,4 +1,4 @@
-package dev.christopheredwards.openperiod.db
+package dev.christopheredwards.openperiod.data
 
 import android.content.Context
 import androidx.room.Database
