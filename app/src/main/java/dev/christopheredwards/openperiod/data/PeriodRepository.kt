@@ -8,5 +8,6 @@ class PeriodRepository(private val periodDataSource: PeriodDao) {
     suspend fun deletePDate(pDate: PDate) = periodDataSource.deletePDate(pDate)
     suspend fun getPDateByDate(date: LocalDate) = periodDataSource.getPDateByDate(date)
     fun getAllPeriods() = periodDataSource.getAllPeriods()
+    fun getMostRecentPeriod(date: LocalDate) = periodDataSource.getMostRecentPeriod(date)
     suspend fun isOnPeriod(date: LocalDate) = periodDataSource.isOnPeriod(date) ?: false
 }

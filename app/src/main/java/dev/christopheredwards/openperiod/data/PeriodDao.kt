@@ -22,6 +22,9 @@ interface PeriodDao {
     @Query("SELECT * FROM period")
     fun getAllPeriods(): LiveData<List<Period>>
 
+    @Query("SELECT * FROM period WHERE :date >= start_date ORDER BY start_date DESC LIMIT 1")
+    fun getMostRecentPeriod(date: LocalDate): LiveData<Period>
+
     // TODO: consider whether to convert this returned result to LiveData<Boolean?>
     @Query(
         """
