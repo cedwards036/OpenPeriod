@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
-class PeriodTest : PeriodRepositoryTest() {
+class GetAllPeriodsTest : PeriodRepositoryTest() {
 
     private fun testAllPeriods(testCode: (periods: List<Period>) -> Unit) {
         repository.getAllPeriods().observeForever {
