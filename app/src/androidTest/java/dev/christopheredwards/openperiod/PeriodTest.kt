@@ -79,7 +79,7 @@ class PeriodTest : PeriodRepositoryTest() {
 
     @Test
     @Throws(Exception::class)
-    fun testPeriodWithNoEndAndNoEstimatesAndNoLengths() {
+    fun testPeriodWithNoEndAndNoLengths() {
         insertDates(periodStartDate("2022-01-01"))
         testAllPeriods {
             val expected = listOf(
@@ -93,7 +93,7 @@ class PeriodTest : PeriodRepositoryTest() {
 
     @Test
     @Throws(Exception::class)
-    fun testPeriodWithStartAndEndButNoEstimates() {
+    fun testPeriodWithStartAndEndButNoCycleEnd() {
         insertDates(
             periodStartDate("2022-01-01"),
             periodEndDate("2022-01-06")
@@ -112,7 +112,7 @@ class PeriodTest : PeriodRepositoryTest() {
 
     @Test
     @Throws(Exception::class)
-    fun testTwoPeriods_SuchThatTheFirstPeriodHasACycleEndDate() {
+    fun testTwoSequentialPeriods_SuchThatTheFirstPeriodHasACycleEndDate() {
         insertDates(
             periodStartDate("2022-01-01"),
             periodEndDate("2022-01-06"),
@@ -130,6 +130,79 @@ class PeriodTest : PeriodRepositoryTest() {
                 Period(
                     startDate = LocalDate.parse("2022-02-02"),
                 )
+            )
+            assertEquals(expected, it)
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testASingleDayWithBothPeriodStartAndEnd() {
+        insertDates(
+            periodStartAndEndDate("2022-01-01"),
+            periodStartDate("2022-02-01")
+        )
+        testAllPeriods {
+            val expected = listOf(
+                Period(
+                    startDate = LocalDate.parse("2022-01-01"),
+                    endDate = LocalDate.parse("2022-01-01"),
+                    cycleEndDate = LocalDate.parse("2022-01-31"),
+                    periodLength = 1,
+                    cycleLength = 31
+                ),
+                Period(
+                    startDate = LocalDate.parse("2022-02-01"),
+                )
+            )
+            assertEquals(expected, it)
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testTwoPeriodsWithTheSameEndDate() {
+        insertDates(
+            periodStartDate("2022-01-01"),
+            periodStartDate("2022-01-05"),
+            periodEndDate("2022-01-07")
+        )
+        testAllPeriods {
+            val expected = listOf(
+                Period(
+                    startDate = LocalDate.parse("2022-01-01"),
+                    endDate = LocalDate.parse("2022-01-07"),
+                    cycleEndDate = LocalDate.parse("2022-01-04"),
+                    periodLength = 7,
+                    cycleLength = 4
+                ),
+                Period(
+                    startDate = LocalDate.parse("2022-01-05"),
+                    endDate = LocalDate.parse("2022-01-07"),
+                    periodLength = 3
+                ),
+            )
+            assertEquals(expected, it)
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testTwoPeriodsWithTheNoEndDate() {
+        insertDates(
+            periodStartDate("2022-01-01"),
+            periodStartDate("2022-01-05")
+        )
+        testAllPeriods {
+            val expected = listOf(
+                Period(
+                    startDate = LocalDate.parse("2022-01-01"),
+                    cycleEndDate = LocalDate.parse("2022-01-04"),
+                    cycleLength = 4
+                ),
+                Period(
+                    startDate = LocalDate.parse("2022-01-05")
+                ),
             )
             assertEquals(expected, it)
         }
