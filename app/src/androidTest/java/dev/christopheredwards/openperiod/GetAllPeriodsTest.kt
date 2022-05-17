@@ -1,9 +1,7 @@
 package dev.christopheredwards.openperiod
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import dev.christopheredwards.openperiod.data.PDate
 import dev.christopheredwards.openperiod.data.Period
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -11,48 +9,6 @@ import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class PeriodTest : PeriodRepositoryTest() {
-
-    private fun periodStartDate(date: String): PDate {
-        return PDate(
-            date = LocalDate.parse(date),
-            periodStarted = true,
-            periodEnded = false
-        )
-    }
-
-    private fun periodEndDate(date: String): PDate {
-        return PDate(
-            date = LocalDate.parse(date),
-            periodStarted = false,
-            periodEnded = true
-        )
-    }
-
-
-    private fun periodStartAndEndDate(date: String): PDate {
-        return PDate(
-            date = LocalDate.parse(date),
-            periodStarted = true,
-            periodEnded = true
-        )
-    }
-
-
-    private fun noEventDate(date: String): PDate {
-        return PDate(
-            date = LocalDate.parse(date),
-            periodStarted = false,
-            periodEnded = false
-        )
-    }
-
-    private fun insertDates(vararg dates: PDate) {
-        runBlocking {
-            for (date in dates) {
-                repository.insertPDate(date)
-            }
-        }
-    }
 
     private fun testAllPeriods(testCode: (periods: List<Period>) -> Unit) {
         repository.getAllPeriods().observeForever {
