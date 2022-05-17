@@ -2,10 +2,11 @@ package dev.christopheredwards.openperiod.data
 
 import java.time.LocalDate
 
-class PeriodRepository(private val periodDataSource: PDateDao) {
-    suspend fun insert(pDate: PDate) = periodDataSource.insert(pDate)
-    suspend fun update(pDate: PDate) = periodDataSource.update(pDate)
-    suspend fun delete(pDate: PDate) = periodDataSource.delete(pDate)
-    suspend fun getByDate(date: LocalDate) = periodDataSource.getByDate(date)
+class PeriodRepository(private val periodDataSource: PeriodDao) {
+    suspend fun insertPDate(pDate: PDate) = periodDataSource.insertPDate(pDate)
+    suspend fun updatePDate(pDate: PDate) = periodDataSource.updatePDate(pDate)
+    suspend fun deletePDate(pDate: PDate) = periodDataSource.deletePDate(pDate)
+    suspend fun getPDateByDate(date: LocalDate) = periodDataSource.getPDateByDate(date)
+    fun getAllPeriods() = periodDataSource.getAllPeriods()
     suspend fun isOnPeriod(date: LocalDate) = periodDataSource.isOnPeriod(date) ?: false
 }

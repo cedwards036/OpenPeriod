@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
             inflater, R.layout.fragment_home, container, false
         )
         val application = requireNotNull(this.activity).application
-        val dataSource = PeriodRepository(PeriodDatabase.getInstance(application).pDateDao)
+        val dataSource = PeriodRepository(PeriodDatabase.getInstance(application).periodDao)
         val viewModelFactory = HomeViewModelFactory(dataSource, LocalDate.now(), application)
         val homeViewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
         binding.homeViewModel = homeViewModel

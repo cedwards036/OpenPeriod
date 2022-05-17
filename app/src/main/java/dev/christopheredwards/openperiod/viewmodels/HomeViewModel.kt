@@ -48,7 +48,7 @@ class HomeViewModel(
     }
 
     private suspend fun getToday(): PDate {
-        var pDate = dataSource.getByDate(currentDate)
+        var pDate = dataSource.getPDateByDate(currentDate)
         if (pDate == null) {
             pDate = PDate(date = currentDate)
         }
@@ -66,10 +66,10 @@ class HomeViewModel(
     private suspend fun startPeriod() {
         today.value?.let {
             it.periodStarted = true
-            if (dataSource.getByDate(currentDate) == null) {
-                dataSource.insert(it)
+            if (dataSource.getPDateByDate(currentDate) == null) {
+                dataSource.insertPDate(it)
             } else {
-                dataSource.update(it)
+                dataSource.updatePDate(it)
             }
         }
     }

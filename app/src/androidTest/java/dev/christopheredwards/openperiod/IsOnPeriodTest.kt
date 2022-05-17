@@ -60,7 +60,7 @@ class IsOnPeriodTest : PeriodRepositoryTest() {
             ),
         )
         for (pDate in dates) {
-            repository.insert(pDate)
+            repository.insertPDate(pDate)
         }
     }
 

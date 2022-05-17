@@ -17,8 +17,8 @@ class BasicDBOperationsTest : PeriodRepositoryTest() {
     fun canRetrievePDate_afterItHasBeenPersisted(): Unit = runBlocking {
         val localDate = LocalDate.parse("2022-01-01")
         val pDate = PDate(id = 1, date = localDate, wasIntimate = true)
-        repository.insert(pDate)
-        val retrievedPDate = repository.getByDate(localDate)
+        repository.insertPDate(pDate)
+        val retrievedPDate = repository.getPDateByDate(localDate)
         assertEquals(pDate, retrievedPDate)
     }
 
@@ -27,10 +27,10 @@ class BasicDBOperationsTest : PeriodRepositoryTest() {
     fun pDateHasNewValues_afterItHasBeenUpdated(): Unit = runBlocking {
         val localDate = LocalDate.parse("2022-01-01")
         val pDate = PDate(id = 1, date = localDate, wasIntimate = true)
-        repository.insert(pDate)
+        repository.insertPDate(pDate)
         pDate.periodStarted = true
-        repository.update(pDate)
-        repository.getByDate(localDate)?.periodStarted?.let { assertTrue(it) }
+        repository.updatePDate(pDate)
+        repository.getPDateByDate(localDate)?.periodStarted?.let { assertTrue(it) }
     }
 
     @Test
@@ -38,9 +38,9 @@ class BasicDBOperationsTest : PeriodRepositoryTest() {
     fun pDateCantBeRetrieved_afterItHasBeenDeleted(): Unit = runBlocking {
         val localDate = LocalDate.parse("2022-01-01")
         val pDate = PDate(id = 1, date = localDate, wasIntimate = true)
-        repository.insert(pDate)
-        repository.delete(pDate)
-        assertNull(repository.getByDate(localDate))
+        repository.insertPDate(pDate)
+        repository.deletePDate(pDate)
+        assertNull(repository.getPDateByDate(localDate))
     }
 
     @Test(expected = SQLiteConstraintException::class)
@@ -49,7 +49,7 @@ class BasicDBOperationsTest : PeriodRepositoryTest() {
         val localDate = LocalDate.parse("2022-01-01")
         val pDate1 = PDate(id = 1, date = localDate)
         val pDate2 = PDate(id = 2, date = localDate)
-        repository.insert(pDate1)
-        repository.insert(pDate2)
+        repository.insertPDate(pDate1)
+        repository.insertPDate(pDate2)
     }
 }

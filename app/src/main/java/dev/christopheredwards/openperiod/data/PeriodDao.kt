@@ -1,22 +1,26 @@
 package dev.christopheredwards.openperiod.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.time.LocalDate
 
 @Dao
-interface PDateDao {
+interface PeriodDao {
 
     @Insert
-    suspend fun insert(pDate: PDate): Long
+    suspend fun insertPDate(pDate: PDate): Long
 
     @Update
-    suspend fun update(pDate: PDate): Int
+    suspend fun updatePDate(pDate: PDate): Int
 
     @Delete
-    suspend fun delete(pDate: PDate): Int
+    suspend fun deletePDate(pDate: PDate): Int
 
     @Query("SELECT * FROM p_date WHERE date = :date")
-    suspend fun getByDate(date: LocalDate): PDate?
+    suspend fun getPDateByDate(date: LocalDate): PDate?
+
+    @Query("SELECT * FROM period")
+    fun getAllPeriods(): LiveData<List<Period>>
 
     // TODO: consider whether to convert this returned result to LiveData<Boolean?>
     @Query(

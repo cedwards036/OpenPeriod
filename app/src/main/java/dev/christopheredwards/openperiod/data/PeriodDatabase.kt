@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [PDate::class], version = 1, exportSchema = false)
+@Database(entities = [PDate::class], views = [Period::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class PeriodDatabase : RoomDatabase() {
 
-    abstract val pDateDao: PDateDao
+    abstract val periodDao: PeriodDao
 
     companion object {
 
